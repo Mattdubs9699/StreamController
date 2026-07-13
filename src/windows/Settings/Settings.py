@@ -285,13 +285,9 @@ class DataPathGroup(Adw.PreferencesGroup):
         gl.settings_manager.save_static_settings(static_settings)
 
     def on_open_data_path_button_clicked(self, *args):
-        path = os.path.abspath(os.path.expanduser(self.data_path.get_text()))
+        path = self.data_path.get_text().strip()
         uri = Gio.File.new_for_path(path).get_uri()
-
-        try:
-            Gio.AppInfo.launch_default_for_uri(uri, None)
-        except Exception as e:
-            print(f"Failed to open data path: {e}")
+        Gio.AppInfo.launch_default_for_uri(uri, None)
 
 
 class GeneralPage(Adw.PreferencesPage):
